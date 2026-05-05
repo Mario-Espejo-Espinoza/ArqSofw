@@ -74,14 +74,19 @@ nav a:hover{
     padding:100px 20px;
 }
 
+/* TITULO */
+
 .hero h1{
     font-size:90px;
+    line-height:1.1;
     margin-bottom:20px;
 }
 
 .hero span{
     color:#60a5fa;
 }
+
+/* NOMBRE */
 
 .nombre{
     font-size:35px;
@@ -90,10 +95,13 @@ nav a:hover{
     font-weight:bold;
 }
 
+/* TEXTO */
+
 .hero p{
     font-size:24px;
     color:#94a3b8;
     max-width:800px;
+    line-height:1.6;
 }
 
 /* BOTON */
@@ -108,6 +116,7 @@ nav a:hover{
     text-decoration:none;
     transition:0.3s;
     font-weight:bold;
+    font-size:18px;
 }
 
 .btn:hover{
@@ -123,18 +132,36 @@ nav a:hover{
     background:#1e293b;
     padding:40px;
     border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    border:1px solid rgba(255,255,255,0.05);
+
     display:flex;
+    align-items:center;
+    justify-content:space-between;
     gap:40px;
 }
+
+/* TEXTO CARD */
 
 .card-text{
     width:60%;
 }
 
 .card-text h2{
-    color:#60a5fa;
     margin-bottom:20px;
+    color:#60a5fa;
+    font-size:40px;
+    text-align:center;
 }
+
+.card-text p{
+    line-height:1.9;
+    color:#cbd5e1;
+    font-size:20px;
+    text-align:justify;
+}
+
+/* IMAGEN */
 
 .card-img{
     width:35%;
@@ -143,6 +170,7 @@ nav a:hover{
 .card-img img{
     width:100%;
     border-radius:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.4);
 }
 
 </style>
@@ -150,26 +178,37 @@ nav a:hover{
 </head>
 <body>
 
+<!-- NAVBAR -->
+
 <header class="navbar">
 
     <div class="logo-area">
+
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Escudo_Upla.png" class="logo">
+
         <div>
             <h2>UPLA</h2>
             <p>Universidad Peruana Los Andes</p>
         </div>
+
     </div>
 
     <nav>
         <a href="index.html">Inicio</a>
-        <a href="login.html">Login</a>
+        <a href="login.html">Registrar</a>
+        <!-- 🔥 BOTÓN NUEVO (sin cambiar nada más) -->
+        <a href="index.html">Volver al Inicio</a>
     </nav>
 
 </header>
 
+<!-- HERO -->
+
 <section class="hero">
 
-    <h1>MI <span>PORTAFOLIO</span></h1>
+    <h1>
+        MI <span>PORTAFOLIO</span>
+    </h1>
 
     <div class="nombre">
         Mario Espejo Espinoza
@@ -180,30 +219,42 @@ nav a:hover{
         Ingeniería de Sistemas y Computación
     </p>
 
-    <!-- 🔥 BOTÓN CORREGIDO -->
+    <!-- 🔥 SOLO ESTE CAMBIO -->
     <a href="introduccion.html" class="btn" onclick="entrarVisitante()">
         Ingresar al Portafolio
     </a>
 
+    <!-- CARD -->
+
     <div class="card">
 
         <div class="card-text">
+
             <h2>Arquitectura de Software</h2>
+
             <p>
-                La Arquitectura de Software define la estructura y organización de los sistemas informáticos,
-                permitiendo desarrollar soluciones eficientes y escalables.
+                La Arquitectura de Software es una disciplina fundamental dentro de la Ingeniería de Sistemas, encargada de definir la estructura, organización y comportamiento de los sistemas informáticos. Permite establecer componentes, relaciones y principios de diseño que facilitan el desarrollo de aplicaciones eficientes, seguras, escalables y mantenibles.
             </p>
+
+            <br>
+
+            <p>
+                A través de este curso se estudian estilos arquitectónicos, patrones de diseño y buenas prácticas orientadas a la construcción de soluciones tecnológicas modernas. Asimismo, se fortalece la capacidad de análisis y planificación en el desarrollo de software, considerando criterios de calidad, rendimiento y sostenibilidad.
+            </p>
+
         </div>
 
         <div class="card-img">
+
             <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1000&auto=format&fit=crop">
+
         </div>
 
     </div>
 
 </section>
 
-<!-- 🔥 SCRIPT CLAVE -->
+<!-- 🔥 SCRIPT NUEVO -->
 <script>
 function entrarVisitante(){
     localStorage.setItem("rol","visitante");
