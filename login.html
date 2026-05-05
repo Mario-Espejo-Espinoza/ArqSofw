@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(rgba(10,15,30,0.9), rgba(10,15,30,0.9)),
+    url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1600&auto=format&fit=crop');
+
+    background-size:cover;
+    background-position:center;
+
+    color:white;
+}
+
+/* LOGIN */
+
+.login-box{
+
+    width:420px;
+
+    background:rgba(15,23,42,0.85);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:25px;
+
+    padding:50px;
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+
+}
+
+.login-box h1{
+    text-align:center;
+    margin-bottom:40px;
+    color:#60a5fa;
+    font-size:45px;
+}
+
+/* INPUTS */
+
+.input-group{
+    margin-bottom:25px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:10px;
+    color:#cbd5e1;
+}
+
+.input-group input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#0f172a;
+    color:white;
+    font-size:16px;
+    outline:none;
+}
+
+.input-group input:focus{
+    border:1px solid #3b82f6;
+}
+
+/* BOTON */
+
+button{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#1d4ed8;
+    transform:scale(1.02);
+}
+
+/* VOLVER */
+
+.volver{
+    display:block;
+    text-align:center;
+    margin-top:25px;
+    color:#94a3b8;
+    text-decoration:none;
+}
+
+.volver:hover{
+    color:#60a5fa;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>LOGIN</h1>
+
+    <div class="input-group">
+        <label>Usuario</label>
+        <input type="text" id="user" placeholder="Ingrese usuario">
+    </div>
+
+    <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" id="pass" placeholder="Ingrese contraseña">
+    </div>
+
+    <button onclick="login()">
+        Ingresar
+    </button>
+
+    <a href="index.html" class="volver">
+        ← Volver al Inicio
+    </a>
+
+</div>
+
+<!-- SCRIPT LIMPIO (SIN ERRORES) -->
+<script>
+
+function login(){
+
+    let user = document.getElementById("user").value;
+    let pass = document.getElementById("pass").value;
+
+    // ADMIN
+    if(user === "admin" && pass === "1234"){
+
+        localStorage.setItem("rol","admin");
+
+        alert("Bienvenido Administrador");
+
+        window.location.href = "introduccion.html";
+    }
+
+    // VISITANTE
+    else{
+
+        localStorage.setItem("rol","visitante");
+
+        alert("Ingreso como Visitante");
+
+        window.location.href = "introduccion.html";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

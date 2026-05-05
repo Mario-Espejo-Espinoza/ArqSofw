@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Introducción</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    background:#111827;
+    color:white;
+    min-height:100vh;
+}
+
+/* NAVBAR */
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 60px;
+    background:#0f172a;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.logo{
+    width:70px;
+}
+
+.logo-area h2{
+    color:#60a5fa;
+}
+
+.logo-area p{
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:30px;
+    transition:0.3s;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#60a5fa;
+}
+
+/* CONTENEDOR */
+
+.container{
+    width:90%;
+    margin:auto;
+    padding:60px 0;
+}
+
+/* TITULO */
+
+.titulo{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.titulo h1{
+    font-size:60px;
+    color:#60a5fa;
+    margin-bottom:15px;
+}
+
+.titulo p{
+    color:#94a3b8;
+    font-size:22px;
+}
+
+/* INTRO */
+
+.intro{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:50px;
+    margin-bottom:80px;
+}
+
+/* TEXTO */
+
+.intro-text{
+    width:55%;
+}
+
+.intro-text h2{
+    font-size:40px;
+    margin-bottom:25px;
+    color:#60a5fa;
+}
+
+.intro-text p{
+    text-align:justify;
+    line-height:2;
+    font-size:19px;
+    color:#cbd5e1;
+}
+
+/* IMAGEN */
+
+.intro-img{
+    width:40%;
+}
+
+.intro-img img{
+    width:100%;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* UNIDADES */
+
+.unidades{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+}
+
+/* CARD */
+
+.card{
+    background:#1e293b;
+    padding:35px;
+    border-radius:20px;
+    transition:0.3s;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    background:#273549;
+}
+
+.card h3{
+    font-size:30px;
+    color:#60a5fa;
+    margin-bottom:20px;
+}
+
+.card p{
+    color:#cbd5e1;
+    line-height:1.8;
+    margin-bottom:25px;
+    text-align:justify;
+}
+
+/* BOTON */
+
+.btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    padding:14px 30px;
+    border-radius:12px;
+    text-decoration:none;
+    transition:0.3s;
+    font-weight:bold;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+    transform:scale(1.05);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .intro{
+        flex-direction:column;
+    }
+
+    .intro-text,
+    .intro-img{
+        width:100%;
+    }
+
+    .unidades{
+        grid-template-columns:1fr;
+    }
+
+    .titulo h1{
+        font-size:40px;
+    }
+
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <div class="logo-area">
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Escudo_Upla.png" class="logo">
+
+        <div>
+            <h2>UPLA</h2>
+            <p>Portafolio Arquitectura de Software</p>
+        </div>
+
+    </div>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+    </nav>
+
+</header>
+
+<!-- CONTENIDO -->
+
+<div class="container">
+
+    <!-- TITULO -->
+
+    <div class="titulo">
+
+        <h1>INTRODUCCIÓN</h1>
+
+        <p>
+            Curso de Arquitectura de Software
+        </p>
+
+    </div>
+
+    <!-- INTRO -->
+
+    <div class="intro">
+
+        <!-- TEXTO -->
+
+        <div class="intro-text">
+
+            <h2>¿Qué es la Arquitectura de Software?</h2>
+
+            <p>
+                La Arquitectura de Software representa la estructura fundamental de un sistema informático, permitiendo definir componentes, relaciones y principios de diseño que facilitan el desarrollo de aplicaciones modernas. Su objetivo principal es garantizar sistemas eficientes, escalables, seguros y fáciles de mantener.
+            </p>
+
+            <br>
+
+            <p>
+                En el presente portafolio se evidencian los trabajos, prácticas y actividades desarrolladas durante el curso, organizadas por unidades académicas y semanas. Asimismo, se muestran los conocimientos adquiridos sobre patrones arquitectónicos, estilos de diseño y buenas prácticas aplicadas a la Ingeniería de Sistemas.
+            </p>
+
+        </div>
+
+        <!-- IMAGEN -->
+
+        <div class="intro-img">
+
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1000&auto=format&fit=crop">
+
+        </div>
+
+    </div>
+
+    <!-- UNIDADES -->
+
+    <div class="unidades">
+
+        <!-- UNIDAD 1 -->
+
+        <div class="card">
+
+            <h3>Unidad I</h3>
+
+            <p>
+                Fundamentos y conceptos básicos de Arquitectura de Software, incluyendo estilos arquitectónicos y principios de diseño.
+            </p>
+
+            <a href="unidad1.html" class="btn">
+                Ingresar
+            </a>
+
+        </div>
+
+        <!-- UNIDAD 2 -->
+
+        <div class="card">
+
+            <h3>Unidad II</h3>
+
+            <p>
+                Desarrollo de modelos arquitectónicos, diagramas y documentación aplicada a sistemas informáticos modernos.
+            </p>
+
+            <a href="unidad2.html" class="btn">
+                Ingresar
+            </a>
+
+        </div>
+
+        <!-- UNIDAD 3 -->
+
+        <div class="card">
+
+            <h3>Unidad III</h3>
+
+            <p>
+                Aplicación de patrones de diseño, calidad de software y metodologías orientadas al desarrollo empresarial.
+            </p>
+
+            <a href="unidad3.html" class="btn">
+                Ingresar
+            </a>
+
+        </div>
+
+        <!-- UNIDAD 4 -->
+
+        <div class="card">
+
+            <h3>Unidad IV</h3>
+
+            <p>
+                Integración de soluciones arquitectónicas y evaluación de proyectos aplicando buenas prácticas profesionales.
+            </p>
+
+            <a href="unidad4.html" class="btn">
+                Ingresar
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

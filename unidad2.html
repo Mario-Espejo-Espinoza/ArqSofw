@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad II</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    background:#111827;
+    color:white;
+    min-height:100vh;
+}
+
+/* NAVBAR */
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 60px;
+    background:#0f172a;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.navbar h2{
+    color:#60a5fa;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.navbar a:hover{
+    color:#60a5fa;
+}
+
+/* TITULO */
+
+.titulo{
+    text-align:center;
+    padding:50px 20px;
+}
+
+.titulo h1{
+    font-size:60px;
+    color:#60a5fa;
+    margin-bottom:15px;
+}
+
+.titulo p{
+    color:#94a3b8;
+    font-size:20px;
+}
+
+/* CONTENEDOR SEMANA */
+
+.semana{
+    width:90%;
+    margin:auto;
+    margin-bottom:60px;
+}
+
+/* HEADER */
+
+.semana-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.semana-header h2{
+    color:#60a5fa;
+    font-size:35px;
+}
+
+/* BOTON AGREGAR */
+
+.add-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:14px 25px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.add-btn:hover{
+    background:#1d4ed8;
+    transform:scale(1.03);
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+/* CARD */
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.05);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    background:#273549;
+}
+
+.card h3{
+    color:#60a5fa;
+    margin-bottom:15px;
+    font-size:28px;
+}
+
+.card p{
+    color:#cbd5e1;
+    margin-bottom:20px;
+    line-height:1.7;
+}
+
+/* BOTONES */
+
+.botones{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    background:#2563eb;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    text-decoration:none;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+.delete-btn{
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.delete-btn:hover{
+    background:#b91c1c;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .titulo h1{
+        font-size:40px;
+    }
+
+    .semana-header{
+        flex-direction:column;
+        gap:20px;
+    }
+
+}
+
+</style>
+
+<script>
+
+// AL CARGAR
+
+window.onload = function(){
+
+    let rol = localStorage.getItem("rol");
+
+    // SI NO ES ADMIN
+
+    if(rol !== "admin"){
+
+        let adminButtons = document.querySelectorAll(".admin");
+
+        adminButtons.forEach(btn=>{
+            btn.style.display = "none";
+        });
+
+    }
+
+}
+
+// AGREGAR TRABAJO
+
+function agregarTrabajo(){
+
+    let input = document.createElement("input");
+
+    input.type = "file";
+
+    input.accept = ".pdf";
+
+    input.click();
+
+    input.onchange = function(){
+
+        let archivo = input.files[0];
+
+        if(archivo){
+
+            let titulo = prompt("Ingrese nombre del trabajo:");
+
+            let url = URL.createObjectURL(archivo);
+
+            let grid = document.getElementById("grid1");
+
+            let card = document.createElement("div");
+
+            card.className = "card";
+
+            card.innerHTML = `
+
+                <h3>${titulo}</h3>
+
+                <p>
+                    Archivo agregado por el administrador.
+                </p>
+
+                <div class="botones">
+
+                    <a href="${url}"
+                    target="_blank"
+                    class="btn">
+
+                        Ver
+
+                    </a>
+
+                    <a href="${url}"
+                    download="${archivo.name}"
+                    class="btn">
+
+                        Descargar
+
+                    </a>
+
+                    <button class="delete-btn admin"
+                    onclick="eliminarTrabajo(this)">
+
+                        Eliminar
+
+                    </button>
+
+                </div>
+
+            `;
+
+            grid.appendChild(card);
+
+        }
+
+    }
+
+}
+
+// ELIMINAR
+
+function eliminarTrabajo(btn){
+
+    btn.parentElement.parentElement.remove();
+
+}
+
+</script>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <h2>Unidad II</h2>
+
+    <a href="introduccion.html">
+
+        ← Volver
+
+    </a>
+
+</div>
+
+<!-- TITULO -->
+
+<div class="titulo">
+
+    <h1>UNIDAD II</h1>
+
+    <p>
+        Modelado y Diseño Arquitectónico
+    </p>
+
+</div>
+
+<!-- SEMANA -->
+
+<div class="semana">
+
+    <div class="semana-header">
+
+        <h2>Semana 5</h2>
+
+        <button class="add-btn admin"
+        onclick="agregarTrabajo()">
+
+            + Agregar Trabajo
+
+        </button>
+
+    </div>
+
+    <!-- GRID -->
+
+    <div class="grid" id="grid1">
+
+        <!-- TRABAJO -->
+
+        <div class="card">
+
+            <h3>Trabajo 1</h3>
+
+            <p>
+                Diagramas y modelos arquitectónicos.
+            </p>
+
+            <div class="botones">
+
+                <a href="archivos/semana5.pdf"
+                target="_blank"
+                class="btn">
+
+                    Ver
+
+                </a>
+
+                <a href="archivos/semana5.pdf"
+                download
+                class="btn">
+
+                    Descargar
+
+                </a>
+
+                <button class="delete-btn admin"
+                onclick="eliminarTrabajo(this)">
+
+                    Eliminar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

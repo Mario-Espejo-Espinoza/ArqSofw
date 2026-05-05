@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Supabase OK</title>
+
+<!-- SOLO UNA VEZ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body>
+
+<h1>SUPABASE TEST</h1>
+
+<button id="btn">PROBAR</button>
+
+<pre id="res"></pre>
+
+<script>
+
+// ⚠️ IMPORTANTE: NO usar "supabase" como nombre
+const cliente = window.supabase.createClient(
+  "https://dkcswvploklhajstyntd.supabase.co",
+  "sb_publishable_9bvZjgFd9SjBYMyKwAcD9w_OWUHBPi2"
+);
+
+document.getElementById("btn").addEventListener("click", async () => {
+
+  const { data, error } = await cliente
+    .storage
+    .from("portafolio")
+    .list("semana1");
+
+  let res = document.getElementById("res");
+
+  if(error){
+    res.innerText = "ERROR:\n" + JSON.stringify(error, null, 2);
+    console.log(error);
+    return;
+  }
+
+  if(data.length === 0){
+    res.innerText = "VACÍO (no hay archivos)";
+    return;
+  }
+
+  res.innerText = JSON.stringify(data, null, 2);
+
+});
+
+</script>
+
+</body>
+</html>

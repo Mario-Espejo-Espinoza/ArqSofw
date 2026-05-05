@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portafolio Arquitectura de Software</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    background:#111827;
+    color:white;
+    min-height:100vh;
+}
+
+/* NAVBAR */
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 60px;
+    background:#0f172a;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.logo{
+    width:70px;
+}
+
+.logo-area h2{
+    color:#60a5fa;
+}
+
+.logo-area p{
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:30px;
+    transition:0.3s;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#60a5fa;
+}
+
+/* HERO */
+
+.hero{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:100px 20px;
+}
+
+.hero h1{
+    font-size:90px;
+    margin-bottom:20px;
+}
+
+.hero span{
+    color:#60a5fa;
+}
+
+.nombre{
+    font-size:35px;
+    color:#cbd5e1;
+    margin-bottom:25px;
+    font-weight:bold;
+}
+
+.hero p{
+    font-size:24px;
+    color:#94a3b8;
+    max-width:800px;
+}
+
+/* BOTON */
+
+.btn{
+    display:inline-block;
+    margin-top:40px;
+    background:#2563eb;
+    color:white;
+    padding:18px 40px;
+    border-radius:12px;
+    text-decoration:none;
+    transition:0.3s;
+    font-weight:bold;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+    transform:scale(1.05);
+}
+
+/* CARD */
+
+.card{
+    margin-top:60px;
+    width:85%;
+    background:#1e293b;
+    padding:40px;
+    border-radius:20px;
+    display:flex;
+    gap:40px;
+}
+
+.card-text{
+    width:60%;
+}
+
+.card-text h2{
+    color:#60a5fa;
+    margin-bottom:20px;
+}
+
+.card-img{
+    width:35%;
+}
+
+.card-img img{
+    width:100%;
+    border-radius:15px;
+}
+
+</style>
+
+</head>
+<body>
+
+<header class="navbar">
+
+    <div class="logo-area">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Escudo_Upla.png" class="logo">
+        <div>
+            <h2>UPLA</h2>
+            <p>Universidad Peruana Los Andes</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="login.html">Login</a>
+    </nav>
+
+</header>
+
+<section class="hero">
+
+    <h1>MI <span>PORTAFOLIO</span></h1>
+
+    <div class="nombre">
+        Mario Espejo Espinoza
+    </div>
+
+    <p>
+        Arquitectura de Software <br>
+        Ingeniería de Sistemas y Computación
+    </p>
+
+    <!-- 🔥 BOTÓN CORREGIDO -->
+    <a href="introduccion.html" class="btn" onclick="entrarVisitante()">
+        Ingresar al Portafolio
+    </a>
+
+    <div class="card">
+
+        <div class="card-text">
+            <h2>Arquitectura de Software</h2>
+            <p>
+                La Arquitectura de Software define la estructura y organización de los sistemas informáticos,
+                permitiendo desarrollar soluciones eficientes y escalables.
+            </p>
+        </div>
+
+        <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1000&auto=format&fit=crop">
+        </div>
+
+    </div>
+
+</section>
+
+<!-- 🔥 SCRIPT CLAVE -->
+<script>
+function entrarVisitante(){
+    localStorage.setItem("rol","visitante");
+}
+</script>
+
+</body>
+</html>
