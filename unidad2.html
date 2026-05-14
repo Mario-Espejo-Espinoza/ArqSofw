@@ -123,71 +123,65 @@ input{
 
     display:none;
 
-    justify-content:center;
-    align-items:center;
-
     z-index:9999;
 
     overflow:auto;
 }
 
-/* CONTENIDO */
+/* CONTENEDOR */
 
 .visor-contenido{
+
     width:100%;
-    height:100%;
+    min-height:100vh;
 
     display:flex;
     justify-content:center;
-    align-items:center;
+    align-items:flex-start;
 
-    padding:20px;
+    padding:40px;
+}
+
+/* IMAGEN */
+
+#imagenVisor{
+
+    max-width:90%;
+    height:auto;
+
+    border-radius:15px;
+
+    display:none;
+
+    object-fit:contain;
+
+    box-shadow:0 0 30px rgba(255,255,255,0.15);
 }
 
 /* PDF */
 
 #archivoVisor{
-    display:none;
 
-    width:90vw;
-    height:90vh;
+    width:90%;
+    height:95vh;
 
     border:none;
 
     border-radius:15px;
 
     background:white;
-
-    box-shadow:0 0 30px rgba(255,255,255,0.15);
 }
 
-/* IMAGENES CON ZOOM */
-
-#imagenVisor{
-    display:none;
-
-    width:auto;
-    height:auto;
-
-    max-width:none;
-    max-height:none;
-
-    transform:scale(2);
-
-    border-radius:15px;
-
-    box-shadow:0 0 30px rgba(255,255,255,0.15);
-}
-
-/* CERRAR */
+/* BOTON CERRAR */
 
 .cerrar{
+
     position:fixed;
+
     top:15px;
     right:25px;
 
-    font-size:55px;
-    font-weight:bold;
+    font-size:45px;
 
     color:white;
 
@@ -198,6 +192,7 @@ input{
 
 </style>
 
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </head>
@@ -224,16 +219,15 @@ input{
 <div class="grid" id="contenedor"></div>
 
 <!-- VISOR -->
-
 <div id="visor" class="visor">
 
     <span class="cerrar" onclick="cerrarVisor()">✖</span>
 
     <div class="visor-contenido">
 
-        <img id="imagenVisor">
-
         <iframe id="archivoVisor"></iframe>
+
+        <img id="imagenVisor">
 
     </div>
 
@@ -375,32 +369,49 @@ async function eliminar(path){
 // ABRIR VISOR
 function abrirVisor(url){
 
-    const visor = document.getElementById("visor");
+    document.getElementById("visor").style.display = "block";
 
-    const imagen = document.getElementById("imagenVisor");
+    let iframe = document.getElementById("archivoVisor");
 
-    const archivo = document.getElementById("archivoVisor");
+    let imagen = document.getElementById("imagenVisor");
 
-    visor.style.display = "flex";
+    // IMAGENES
+    if(
+        url.includes(".png") ||
+        url.includes(".jpg") ||
+        url.includes(".jpeg") ||
+        url.includes(".gif") ||
+        url.includes(".webp")
+    ){
 
-    // PDF
-    if(url.toLowerCase().includes(".pdf")){
-
-        archivo.style.display = "block";
-
-        imagen.style.display = "none";
-
-        archivo.src = "https://docs.google.com/gview?embedded=1&url=" + encodeURIComponent(url);
-    }
-
-    // IMAGEN
-    else{
+        iframe.style.display = "none";
 
         imagen.style.display = "block";
 
-        archivo.style.display = "none";
-
         imagen.src = url;
+
+        imagen.style.maxWidth = "90%";
+        imagen.style.height = "auto";
+    }
+
+    // PDF
+    else if(url.includes(".pdf")){
+
+        imagen.style.display = "none";
+
+        iframe.style.display = "block";
+
+        iframe.src = "https://docs.google.com/gview?embedded=1&url=" + encodeURIComponent(url);
+    }
+
+    // OTROS
+    else{
+
+        imagen.style.display = "none";
+
+        iframe.style.display = "block";
+
+        iframe.src = url;
     }
 }
 
