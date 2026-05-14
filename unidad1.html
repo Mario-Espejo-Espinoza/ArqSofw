@@ -28,7 +28,9 @@ body{
     padding:20px 50px;
 }
 
-.navbar h2{ color:#60a5fa; }
+.navbar h2{
+    color:#60a5fa;
+}
 
 .navbar a{
     color:white;
@@ -36,7 +38,9 @@ body{
     margin-left:20px;
 }
 
-.logout{ color:#ef4444 !important; }
+.logout{
+    color:#ef4444 !important;
+}
 
 .titulo{
     text-align:center;
@@ -77,6 +81,7 @@ body{
 
 .archivo p{
     margin-bottom:5px;
+    word-break:break-word;
 }
 
 .btn{
@@ -103,18 +108,24 @@ input{
 
 </style>
 
-<!-- SOLO UNA VEZ -->
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </head>
 <body>
 
 <div class="navbar">
+
     <h2>Unidad I</h2>
+
     <div>
         <a href="introduccion.html">← Volver</a>
-        <a href="#" class="logout" onclick="cerrarSesion()">Cerrar Sesión</a>
+
+        <a href="#" class="logout" onclick="cerrarSesion()">
+            Cerrar Sesión
+        </a>
     </div>
+
 </div>
 
 <div class="titulo">
@@ -125,27 +136,26 @@ input{
 
 <script>
 
-// ⚠️ CAMBIO IMPORTANTE → nombre distinto (evita error duplicado)
 const cliente = window.supabase.createClient(
     "https://dkcswvploklhajstyntd.supabase.co",
     "sb_publishable_9bvZjgFd9SjBYMyKwAcD9w_OWUHBPi2"
 );
 
-// tu sistema de roles sigue funcionando
 let rol = localStorage.getItem("rol") || "admin";
 
-// semanas
 const semanas = ["semana1","semana2","semana3","semana4"];
 
 // render
 async function render(){
 
     let contenedor = document.getElementById("contenedor");
+
     contenedor.innerHTML = "";
 
     for(let semana of semanas){
 
         let card = document.createElement("div");
+
         card.className = "card";
 
         let html = `<h3>${semana.toUpperCase()}</h3>`;
@@ -156,7 +166,9 @@ async function render(){
             .list(semana);
 
         if(!data || data.length === 0){
+
             html += `<p style="color:gray;">No hay archivos</p>`;
+
         }else{
 
             data.forEach(file => {
@@ -170,27 +182,42 @@ async function render(){
 
                 html += `
                     <div class="archivo">
+
                         <p>${file.name}</p>
 
-                        <a href="${url}" target="_blank" class="btn">Ver</a>
+                        <a href="${url}" target="_blank" class="btn">
+                            Ver
+                        </a>
+
+                        <a href="${url}" download class="btn" style="background:#16a34a;">
+    Descargar
+</a>
 
                         ${rol === "admin" ? `
-                            <button onclick="eliminar('${path}')" class="btn" style="background:red;">Eliminar</button>
+                            <button onclick="eliminar('${path}')" class="btn" style="background:red;">
+                                Eliminar
+                            </button>
                         ` : ""}
+
                     </div>
                 `;
             });
         }
 
-        // ADMIN SUBIR
+        // ADMIN
         if(rol === "admin"){
+
             html += `
                 <input type="file" id="${semana}">
-                <button onclick="subir('${semana}')" class="btn">Subir</button>
+
+                <button onclick="subir('${semana}')" class="btn">
+                    Subir
+                </button>
             `;
         }
 
         card.innerHTML = html;
+
         contenedor.appendChild(card);
     }
 }
@@ -205,20 +232,27 @@ async function subir(semana){
         return;
     }
 
-    const path = `${semana}/${Date.now()}_${file.name}`;
+    // 🔥 SIN NUMEROS
+    const path = `${semana}/${file.name}`;
 
     const { error } = await cliente
         .storage
         .from("portafolio")
-        .upload(path, file);
+        .upload(path, file, {
+            upsert:true
+        });
 
     if(error){
+
         alert("Error al subir");
+
         console.log(error);
+
         return;
     }
 
     alert("Archivo subido ✅");
+
     render();
 }
 
@@ -233,9 +267,11 @@ async function eliminar(path){
     render();
 }
 
-// cerrar
+// cerrar sesión
 function cerrarSesion(){
+
     localStorage.clear();
+
     window.location.href = "index.html";
 }
 
