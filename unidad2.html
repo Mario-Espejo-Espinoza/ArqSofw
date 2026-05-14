@@ -139,14 +139,20 @@ input{
     align-items:center;
 }
 
-.visor iframe,
-.visor img{
+#archivoVisor{
+    width:100%;
+    height:100%;
+    border:none;
+    border-radius:15px;
+    background:white;
+}
+
+#imagenVisor{
     width:100%;
     height:100%;
     object-fit:contain;
-    border:none;
     border-radius:15px;
-    background:transparent;
+    display:none;
 }
 
 .cerrar{
@@ -195,6 +201,8 @@ input{
 
         <iframe id="archivoVisor"></iframe>
 
+        <img id="imagenVisor">
+
     </div>
 
 </div>
@@ -238,7 +246,6 @@ async function render(){
 
             data.forEach(file => {
 
-                // 🔥 QUITAR NUMEROS DEL NOMBRE
                 let nombreLimpio = file.name.replace(/^\d+_/, "");
 
                 const path = `${semana}/${file.name}`;
@@ -300,7 +307,6 @@ async function subir(semana){
         return;
     }
 
-    // 🔥 SIN NUMEROS
     const path = `${semana}/${file.name}`;
 
     const { error } = await cliente
@@ -340,7 +346,35 @@ function abrirVisor(url){
 
     document.getElementById("visor").style.display = "flex";
 
-    document.getElementById("archivoVisor").src = url;
+    let iframe = document.getElementById("archivoVisor");
+
+    let imagen = document.getElementById("imagenVisor");
+
+    // IMAGENES
+    if(
+        url.includes(".png") ||
+        url.includes(".jpg") ||
+        url.includes(".jpeg") ||
+        url.includes(".gif") ||
+        url.includes(".webp")
+    ){
+
+        iframe.style.display = "none";
+
+        imagen.style.display = "block";
+
+        imagen.src = url;
+    }
+
+    // PDF Y OTROS
+    else{
+
+        imagen.style.display = "none";
+
+        iframe.style.display = "block";
+
+        iframe.src = url;
+    }
 }
 
 // CERRAR VISOR
@@ -349,6 +383,8 @@ function cerrarVisor(){
     document.getElementById("visor").style.display = "none";
 
     document.getElementById("archivoVisor").src = "";
+
+    document.getElementById("imagenVisor").src = "";
 }
 
 // CERRAR SESION
