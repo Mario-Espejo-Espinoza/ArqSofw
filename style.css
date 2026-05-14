@@ -166,22 +166,26 @@ nav a:hover{
     padding:20px;
 }
 
-/* IMAGENES */
+/* IMAGENES CON ZOOM */
 
 #imagenVisor{
     display:none;
 
-    max-width:90vw;
-    max-height:90vh;
+    max-width:none;
+    max-height:none;
 
     width:auto;
     height:auto;
+
+    transform:scale(1.6);
 
     object-fit:contain;
 
     border-radius:15px;
 
     box-shadow:0 0 30px rgba(255,255,255,0.15);
+
+    transition:0.3s;
 }
 
 /* PDF */
