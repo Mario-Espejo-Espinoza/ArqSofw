@@ -128,45 +128,76 @@ input{
 
     z-index:9999;
 
-    padding:30px;
+    overflow:auto;
 }
 
+/* CONTENIDO */
+
 .visor-contenido{
-    width:90%;
-    height:90%;
+    width:100%;
+    height:100%;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
+    padding:20px;
 }
+
+/* PDF */
 
 #archivoVisor{
-    width:100%;
-    height:100%;
+    display:none;
+
+    width:90vw;
+    height:90vh;
+
     border:none;
+
     border-radius:15px;
+
     background:white;
+
+    box-shadow:0 0 30px rgba(255,255,255,0.15);
 }
+
+/* IMAGENES CON ZOOM */
 
 #imagenVisor{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    border-radius:15px;
     display:none;
+
+    width:auto;
+    height:auto;
+
+    max-width:none;
+    max-height:none;
+
+    transform:scale(2);
+
+    border-radius:15px;
+
+    box-shadow:0 0 30px rgba(255,255,255,0.15);
 }
 
+/* CERRAR */
+
 .cerrar{
-    position:absolute;
+    position:fixed;
     top:15px;
-    right:30px;
-    font-size:40px;
+    right:25px;
+
+    font-size:55px;
+    font-weight:bold;
+
     color:white;
+
     cursor:pointer;
+
+    z-index:10000;
 }
 
 </style>
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </head>
@@ -193,15 +224,16 @@ input{
 <div class="grid" id="contenedor"></div>
 
 <!-- VISOR -->
+
 <div id="visor" class="visor">
 
     <span class="cerrar" onclick="cerrarVisor()">✖</span>
 
     <div class="visor-contenido">
 
-        <iframe id="archivoVisor"></iframe>
-
         <img id="imagenVisor">
+
+        <iframe id="archivoVisor"></iframe>
 
     </div>
 
@@ -279,7 +311,6 @@ async function render(){
             });
         }
 
-        // ADMIN
         if(rol === "admin"){
 
             html += `
@@ -344,46 +375,32 @@ async function eliminar(path){
 // ABRIR VISOR
 function abrirVisor(url){
 
-    document.getElementById("visor").style.display = "flex";
+    const visor = document.getElementById("visor");
 
-    let iframe = document.getElementById("archivoVisor");
+    const imagen = document.getElementById("imagenVisor");
 
-    let imagen = document.getElementById("imagenVisor");
+    const archivo = document.getElementById("archivoVisor");
 
-    // DETECTAR IMAGENES
-    if(
-        url.includes(".png") ||
-        url.includes(".jpg") ||
-        url.includes(".jpeg") ||
-        url.includes(".gif") ||
-        url.includes(".webp")
-    ){
+    visor.style.display = "flex";
 
-        iframe.style.display = "none";
+    // PDF
+    if(url.toLowerCase().includes(".pdf")){
+
+        archivo.style.display = "block";
+
+        imagen.style.display = "none";
+
+        archivo.src = "https://docs.google.com/gview?embedded=1&url=" + encodeURIComponent(url);
+    }
+
+    // IMAGEN
+    else{
 
         imagen.style.display = "block";
 
+        archivo.style.display = "none";
+
         imagen.src = url;
-    }
-
-    // PDF
-    else if(url.includes(".pdf")){
-
-        imagen.style.display = "none";
-
-        iframe.style.display = "block";
-
-        iframe.src = "https://docs.google.com/gview?embedded=1&url=" + encodeURIComponent(url);
-    }
-
-    // OTROS ARCHIVOS
-    else{
-
-        imagen.style.display = "none";
-
-        iframe.style.display = "block";
-
-        iframe.src = url;
     }
 }
 
