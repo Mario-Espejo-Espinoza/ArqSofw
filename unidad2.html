@@ -350,7 +350,7 @@ function abrirVisor(url){
 
     let imagen = document.getElementById("imagenVisor");
 
-    // IMAGENES
+    // DETECTAR IMAGENES
     if(
         url.includes(".png") ||
         url.includes(".jpg") ||
@@ -366,7 +366,17 @@ function abrirVisor(url){
         imagen.src = url;
     }
 
-    // PDF Y OTROS
+    // PDF
+    else if(url.includes(".pdf")){
+
+        imagen.style.display = "none";
+
+        iframe.style.display = "block";
+
+        iframe.src = "https://docs.google.com/gview?embedded=1&url=" + encodeURIComponent(url);
+    }
+
+    // OTROS ARCHIVOS
     else{
 
         imagen.style.display = "none";
