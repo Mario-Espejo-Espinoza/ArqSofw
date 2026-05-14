@@ -20,6 +20,8 @@ body{
     color:white;
 }
 
+/* NAVBAR */
+
 .navbar{
     background:#0f172a;
     display:flex;
@@ -42,6 +44,8 @@ body{
     color:#ef4444 !important;
 }
 
+/* TITULO */
+
 .titulo{
     text-align:center;
     padding:50px 20px;
@@ -52,6 +56,8 @@ body{
     color:#60a5fa;
 }
 
+/* GRID */
+
 .grid{
     width:90%;
     margin:auto;
@@ -60,6 +66,8 @@ body{
     gap:25px;
     padding-bottom:60px;
 }
+
+/* CARD */
 
 .card{
     background:#1e293b;
@@ -72,32 +80,56 @@ body{
     margin-bottom:15px;
 }
 
+/* ARCHIVOS */
+
 .archivo{
     background:#0f172a;
-    padding:10px;
+    padding:15px;
     border-radius:10px;
-    margin-bottom:10px;
+    margin-bottom:12px;
 }
 
 .archivo p{
-    margin-bottom:5px;
+    margin-bottom:10px;
     word-break:break-word;
+    color:#e2e8f0;
 }
+
+/* BOTONES */
 
 .btn{
     background:#2563eb;
     color:white;
-    padding:6px 10px;
+    padding:7px 12px;
     border-radius:8px;
     border:none;
     cursor:pointer;
     margin:3px;
     text-decoration:none;
+    display:inline-block;
 }
 
 .btn:hover{
     background:#1d4ed8;
 }
+
+.btn-descargar{
+    background:#16a34a;
+}
+
+.btn-descargar:hover{
+    background:#15803d;
+}
+
+.btn-eliminar{
+    background:#dc2626;
+}
+
+.btn-eliminar:hover{
+    background:#b91c1c;
+}
+
+/* INPUT */
 
 input{
     width:100%;
@@ -124,20 +156,33 @@ input{
     z-index:9999;
 }
 
-.visor iframe,
-.visor img{
-    width:85%;
-    height:85%;
+/* CONTENEDOR */
+
+.visor-contenido{
+    width:90%;
+    height:90%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* IFRAME */
+
+#archivoVisor{
+    width:100%;
+    height:100%;
     border:none;
     border-radius:15px;
-    background:white;
+    background:transparent;
 }
+
+/* CERRAR */
 
 .cerrar{
     position:absolute;
-    top:20px;
-    right:35px;
-    font-size:35px;
+    top:15px;
+    right:25px;
+    font-size:40px;
     color:white;
     cursor:pointer;
 }
@@ -170,26 +215,38 @@ input{
 <div class="grid" id="contenedor"></div>
 
 <!-- VISOR -->
+
 <div id="visor" class="visor">
 
     <span class="cerrar" onclick="cerrarVisor()">✖</span>
 
-    <iframe id="archivoVisor"></iframe>
+    <div class="visor-contenido">
+
+        <iframe id="archivoVisor"></iframe>
+
+    </div>
 
 </div>
 
 <script>
+
+/* SUPABASE */
 
 const cliente = window.supabase.createClient(
     "https://dkcswvploklhajstyntd.supabase.co",
     "sb_publishable_9bvZjgFd9SjBYMyKwAcD9w_OWUHBPi2"
 );
 
+/* ROL */
+
 let rol = localStorage.getItem("rol") || "admin";
+
+/* SEMANAS */
 
 const semanas = ["semana5","semana6","semana7","semana8"];
 
-// render
+/* RENDER */
+
 async function render(){
 
     let contenedor = document.getElementById("contenedor");
@@ -233,8 +290,12 @@ async function render(){
                             Ver
                         </button>
 
+                        <a href="${url}" download class="btn btn-descargar">
+                            Descargar
+                        </a>
+
                         ${rol === "admin" ? `
-                            <button onclick="eliminar('${path}')" class="btn" style="background:red;">
+                            <button onclick="eliminar('${path}')" class="btn btn-eliminar">
                                 Eliminar
                             </button>
                         ` : ""}
@@ -244,7 +305,8 @@ async function render(){
             });
         }
 
-        // ADMIN
+        /* ADMIN */
+
         if(rol === "admin"){
 
             html += `
@@ -262,15 +324,20 @@ async function render(){
     }
 }
 
-// subir
+/* SUBIR */
+
 async function subir(semana){
 
     let file = document.getElementById(semana).files[0];
 
     if(!file){
+
         alert("Selecciona archivo");
+
         return;
     }
+
+    /* SIN NUMEROS */
 
     const path = `${semana}/${file.name}`;
 
@@ -295,7 +362,8 @@ async function subir(semana){
     render();
 }
 
-// eliminar
+/* ELIMINAR */
+
 async function eliminar(path){
 
     await cliente
@@ -306,7 +374,8 @@ async function eliminar(path){
     render();
 }
 
-// abrir visor
+/* ABRIR VISOR */
+
 function abrirVisor(url){
 
     document.getElementById("visor").style.display = "flex";
@@ -314,7 +383,8 @@ function abrirVisor(url){
     document.getElementById("archivoVisor").src = url;
 }
 
-// cerrar visor
+/* CERRAR VISOR */
+
 function cerrarVisor(){
 
     document.getElementById("visor").style.display = "none";
@@ -322,7 +392,8 @@ function cerrarVisor(){
     document.getElementById("archivoVisor").src = "";
 }
 
-// cerrar sesión
+/* CERRAR SESION */
+
 function cerrarSesion(){
 
     localStorage.clear();
@@ -330,7 +401,8 @@ function cerrarSesion(){
     window.location.href = "index.html";
 }
 
-// iniciar
+/* INICIAR */
+
 render();
 
 </script>
