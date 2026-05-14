@@ -18,16 +18,17 @@
 body{
     background:#111827;
     color:white;
+    min-height:100vh;
 }
 
 /* NAVBAR */
 
 .navbar{
-    background:#0f172a;
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:20px 50px;
+    background:#0f172a;
 }
 
 .navbar h2{
@@ -61,9 +62,13 @@ body{
 .grid{
     width:90%;
     margin:auto;
+
     display:grid;
+
     grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
     gap:25px;
+
     padding-bottom:60px;
 }
 
@@ -85,7 +90,7 @@ body{
 .archivo{
     background:#0f172a;
     padding:15px;
-    border-radius:10px;
+    border-radius:12px;
     margin-bottom:12px;
 }
 
@@ -98,15 +103,22 @@ body{
 /* BOTONES */
 
 .btn{
+    display:inline-block;
+
     background:#2563eb;
     color:white;
-    padding:7px 12px;
+
+    padding:8px 14px;
+
     border-radius:8px;
+
     border:none;
+
     cursor:pointer;
-    margin:3px;
+
     text-decoration:none;
-    display:inline-block;
+
+    margin:3px;
 }
 
 .btn:hover{
@@ -142,11 +154,14 @@ input{
 
 .visor{
     position:fixed;
+
     top:0;
     left:0;
+
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.95);
+
+    background:rgba(0,0,0,0.96);
 
     display:none;
 
@@ -154,37 +169,57 @@ input{
     align-items:center;
 
     z-index:9999;
+
+    overflow:auto;
 }
 
-/* CONTENEDOR VISOR */
+/* CONTENEDOR */
 
 .visor-contenido{
-    width:90%;
-    height:90%;
+    width:100%;
+    min-height:100vh;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
+    padding:30px;
 }
 
-/* IFRAME */
+/* IMAGEN */
 
-#archivoVisor{
-    width:100%;
-    height:100%;
-    border:none;
+.visor img{
+
+    display:block;
+
+    max-width:90vw;
+    max-height:90vh;
+
+    width:auto;
+    height:auto;
+
+    object-fit:contain;
+
     border-radius:15px;
-    background:transparent;
+
+    box-shadow:0 0 30px rgba(255,255,255,0.15);
 }
 
 /* CERRAR */
 
 .cerrar{
-    position:absolute;
+    position:fixed;
+
     top:15px;
     right:25px;
-    font-size:40px;
+
+    font-size:60px;
+
     color:white;
+
     cursor:pointer;
+
+    z-index:10000;
 }
 
 </style>
@@ -223,7 +258,7 @@ input{
 
     <div class="visor-contenido">
 
-        <iframe id="archivoVisor"></iframe>
+        <img id="imagenVisor">
 
     </div>
 
@@ -279,7 +314,7 @@ async function render(){
                 html += `
                     <div class="archivo">
 
-                        <p>${file.name}</p>
+                        <p>${file.name.replace(/^\\d+_/, '')}</p>
 
                         <button class="btn" onclick="abrirVisor('${url}')">
                             Ver
@@ -299,8 +334,6 @@ async function render(){
                 `;
             });
         }
-
-        /* ADMIN */
 
         if(rol === "admin"){
 
@@ -331,8 +364,6 @@ async function subir(semana){
 
         return;
     }
-
-    /* SIN NUMEROS */
 
     const path = `${semana}/${file.name}`;
 
@@ -375,7 +406,7 @@ function abrirVisor(url){
 
     document.getElementById("visor").style.display = "flex";
 
-    document.getElementById("archivoVisor").src = url;
+    document.getElementById("imagenVisor").src = url;
 }
 
 /* CERRAR VISOR */
@@ -384,7 +415,7 @@ function cerrarVisor(){
 
     document.getElementById("visor").style.display = "none";
 
-    document.getElementById("archivoVisor").src = "";
+    document.getElementById("imagenVisor").src = "";
 }
 
 /* CERRAR SESION */
