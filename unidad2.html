@@ -124,11 +124,13 @@ input{
     z-index:9999;
 }
 
+.visor iframe,
 .visor img{
-    max-width:85%;
-    max-height:85%;
+    width:85%;
+    height:85%;
+    border:none;
     border-radius:15px;
-    box-shadow:0 0 30px rgba(255,255,255,0.2);
+    background:white;
 }
 
 .cerrar{
@@ -148,14 +150,17 @@ input{
 <body>
 
 <div class="navbar">
+
     <h2>Unidad II</h2>
 
     <div>
         <a href="introduccion.html">← Volver</a>
+
         <a href="#" class="logout" onclick="cerrarSesion()">
             Cerrar Sesión
         </a>
     </div>
+
 </div>
 
 <div class="titulo">
@@ -169,7 +174,7 @@ input{
 
     <span class="cerrar" onclick="cerrarVisor()">✖</span>
 
-    <img id="imagenVisor">
+    <iframe id="archivoVisor"></iframe>
 
 </div>
 
@@ -224,7 +229,7 @@ async function render(){
 
                         <p>${file.name}</p>
 
-                        <button onclick="abrirVisor('${url}')" class="btn">
+                        <button class="btn" onclick="abrirVisor('${url}')">
                             Ver
                         </button>
 
@@ -306,13 +311,15 @@ function abrirVisor(url){
 
     document.getElementById("visor").style.display = "flex";
 
-    document.getElementById("imagenVisor").src = url;
+    document.getElementById("archivoVisor").src = url;
 }
 
 // cerrar visor
 function cerrarVisor(){
 
     document.getElementById("visor").style.display = "none";
+
+    document.getElementById("archivoVisor").src = "";
 }
 
 // cerrar sesión
