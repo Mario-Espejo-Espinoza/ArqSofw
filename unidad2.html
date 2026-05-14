@@ -197,6 +197,7 @@ async function render(){
 }
 
 // subir
+// subir
 async function subir(semana){
 
     let file = document.getElementById(semana).files[0];
@@ -206,12 +207,15 @@ async function subir(semana){
         return;
     }
 
-    const path = `${semana}/${Date.now()}_${file.name}`;
+    // 🔥 YA NO AGREGA NUMEROS
+    const path = `${semana}/${file.name}`;
 
     const { error } = await cliente
         .storage
         .from("portafolio")
-        .upload(path, file);
+        .upload(path, file, {
+            upsert:true
+        });
 
     if(error){
         alert("Error al subir");
@@ -220,6 +224,7 @@ async function subir(semana){
     }
 
     alert("Archivo subido ✅");
+
     render();
 }
 
