@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad II</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    background:#111827;
+    color:white;
+}
+
+.navbar{
+    background:#0f172a;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+}
+
+.navbar h2{
+    color:#60a5fa;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+.logout{
+    color:#ef4444 !important;
+}
+
+.titulo{
+    text-align:center;
+    padding:50px 20px;
+}
+
+.titulo h1{
+    font-size:55px;
+    color:#60a5fa;
+}
+
+.grid{
+    width:90%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+    padding-bottom:60px;
+}
+
+.card{
+    background:#1e293b;
+    border-radius:20px;
+    padding:25px;
+}
+
+.card h3{
+    color:#60a5fa;
+    margin-bottom:15px;
+}
+
+.archivo{
+    background:#0f172a;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:12px;
+}
+
+.archivo p{
+    margin-bottom:10px;
+    word-break:break-word;
+    color:#e2e8f0;
+}
+
+.btn{
+    background:#2563eb;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    margin:3px;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    margin-top:10px;
+    background:#0f172a;
+    color:white;
+    border:none;
+}
+
+/* VISOR */
+
+.visor{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.96);
+
+    display:none;
+
+    z-index:9999;
+
+    overflow:auto;
+}
+
+/* CONTENEDOR */
+
+.visor-contenido{
+
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+
+    padding:40px;
+}
+
+/* IMAGEN */
+
+#imagenVisor{
+
+    max-width:90%;
+    height:auto;
+
+    border-radius:15px;
+
+    display:none;
+
+    object-fit:contain;
+
+    box-shadow:0 0 30px rgba(255,255,255,0.15);
+}
+
+/* PDF */
+
+#archivoVisor{
+
+    width:90%;
+    height:95vh;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:white;
+}
+
+/* BOTON CERRAR */
+
+.cerrar{
+
+    position:fixed;
+
+    top:15px;
+    right:25px;
+
+    font-size:45px;
+
+    color:white;
+
+    cursor:pointer;
+
+    z-index:10000;
+}
+
+</style>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+<body>
+
+<div class="navbar">
+
+    <h2>Unidad II</h2>
+
+    <div>
+        <a href="introduccion.html">← Volver</a>
+
+        <a href="#" class="logout" onclick="cerrarSesion()">
+            Cerrar Sesión
+        </a>
+    </div>
+
+</div>
+
+<div class="titulo">
+    <h1>UNIDAD III</h1>
+</div>
+
+<div class="grid" id="contenedor"></div>
+
+<!-- VISOR -->
+<div id="visor" class="visor">
+
+    <span class="cerrar" onclick="cerrarVisor()">✖</span>
+
+    <div class="visor-contenido">
+
+        <iframe id="archivoVisor"></iframe>
+
+        <img id="imagenVisor">
+
+    </div>
+
+</div>
+
+<script>
+
+const cliente = window.supabase.createClient(
+    "https://dkcswvploklhajstyntd.supabase.co",
+    "sb_publishable_9bvZjgFd9SjBYMyKwAcD9w_OWUHBPi2"
+);
+
+let rol = localStorage.getItem("rol") || "admin";
+
+const semanas = ["semana9","semana10","semana11","semana12"];
+
+// RENDER
+async function render(){
+
+    let contenedor = document.getElementById("contenedor");
+
+    contenedor.innerHTML = "";
+
+    for(let semana of semanas){
+
+        let card = document.createElement("div");
+
+        card.className = "card";
+
+        let html = `<h3>${semana.toUpperCase()}</h3>`;
+
+        const { data } = await cliente
+            .storage
+            .from("portafolio")
+            .list(semana);
+
+        if(!data || data.length === 0){
+
+            html += `<p style="color:gray;">No hay archivos</p>`;
+
+        }else{
+
+            data.forEach(file => {
+
+                let nombreLimpio = file.name.replace(/^\d+_/, "");
+
+                const path = `${semana}/${file.name}`;
+
+                const url = cliente
+                    .storage
+                    .from("portafolio")
+                    .getPublicUrl(path).data.publicUrl;
+
+                html += `
+                    <div class="archivo">
+
+                        <p>📄 ${nombreLimpio}</p>
+
+                        <button class="btn" onclick="abrirVisor('${url}')">
+                            Ver
+                        </button>
+
+                        <a href="${url}" download class="btn" style="background:#16a34a;">
+                            Descargar
+                        </a>
+
+                        ${rol === "admin" ? `
+                            <button onclick="eliminar('${path}')" class="btn" style="background:red;">
+                                Eliminar
+                            </button>
+                        ` : ""}
+
+                    </div>
+                `;
+            });
+        }
+
+        if(rol === "admin"){
+
+            html += `
+                <input type="file" id="${semana}">
+
+                <button onclick="subir('${semana}')" class="btn">
+                    Subir
+                </button>
+            `;
+        }
+
+        card.innerHTML = html;
+
+        contenedor.appendChild(card);
+    }
+}
+
+// SUBIR
+async function subir(semana){
+
+    let file = document.getElementById(semana).files[0];
+
+    if(!file){
+        alert("Selecciona archivo");
+        return;
+    }
+
+    const path = `${semana}/${file.name}`;
+
+    const { error } = await cliente
+        .storage
+        .from("portafolio")
+        .upload(path, file, {
+            upsert:true
+        });
+
+    if(error){
+
+        alert("Error al subir");
+
+        console.log(error);
+
+        return;
+    }
+
+    alert("Archivo subido ✅");
+
+    render();
+}
+
+// ELIMINAR
+async function eliminar(path){
+
+    await cliente
+        .storage
+        .from("portafolio")
+        .remove([path]);
+
+    render();
+}
+
+// ABRIR VISOR
+function abrirVisor(url){
+
+    document.getElementById("visor").style.display = "block";
+
+    let iframe = document.getElementById("archivoVisor");
+
+    let imagen = document.getElementById("imagenVisor");
+
+    // IMAGENES
+    if(
+        url.includes(".png") ||
+        url.includes(".jpg") ||
+        url.includes(".jpeg") ||
+        url.includes(".gif") ||
+        url.includes(".webp")
+    ){
+
+        iframe.style.display = "none";
+
+        imagen.style.display = "block";
+
+        imagen.src = url;
+
+        imagen.style.maxWidth = "90%";
+        imagen.style.height = "auto";
+    }
+
+    // PDF
+    else if(url.includes(".pdf")){
+
+        imagen.style.display = "none";
+
+        iframe.style.display = "block";
+
+        iframe.src = "https://docs.google.com/gview?embedded=1&url=" + encodeURIComponent(url);
+    }
+
+    // OTROS
+    else{
+
+        imagen.style.display = "none";
+
+        iframe.style.display = "block";
+
+        iframe.src = url;
+    }
+}
+
+// CERRAR VISOR
+function cerrarVisor(){
+
+    document.getElementById("visor").style.display = "none";
+
+    document.getElementById("archivoVisor").src = "";
+
+    document.getElementById("imagenVisor").src = "";
+}
+
+// CERRAR SESION
+function cerrarSesion(){
+
+    localStorage.clear();
+
+    window.location.href = "index.html";
+}
+
+// INICIAR
+render();
+
+</script>
+
+</body>
+</html>
