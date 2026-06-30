@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Introducción</title>
+<title>Unidad IV</title>
 
 <style>
 
@@ -18,340 +18,396 @@
 body{
     background:#111827;
     color:white;
-    min-height:100vh;
 }
 
-/* NAVBAR */
-
 .navbar{
+    background:#0f172a;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:20px 60px;
-    background:#0f172a;
-    border-bottom:1px solid rgba(255,255,255,0.1);
+    padding:20px 50px;
 }
 
-.logo-area{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.logo{
-    width:70px;
-}
-
-.logo-area h2{
+.navbar h2{
     color:#60a5fa;
 }
 
-.logo-area p{
-    color:#cbd5e1;
-    font-size:14px;
-}
-
-nav a{
+.navbar a{
     color:white;
     text-decoration:none;
-    margin-left:30px;
-    transition:0.3s;
-    font-weight:500;
+    margin-left:20px;
 }
 
-nav a:hover{
-    color:#60a5fa;
+.logout{
+    color:#ef4444 !important;
 }
-
-/* CONTENEDOR */
-
-.container{
-    width:90%;
-    margin:auto;
-    padding:60px 0;
-}
-
-/* TITULO */
 
 .titulo{
     text-align:center;
-    margin-bottom:60px;
+    padding:50px 20px;
 }
 
 .titulo h1{
-    font-size:60px;
+    font-size:55px;
+    color:#60a5fa;
+}
+
+.grid{
+    width:90%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+    padding-bottom:60px;
+}
+
+.card{
+    background:#1e293b;
+    border-radius:20px;
+    padding:25px;
+}
+
+.card h3{
     color:#60a5fa;
     margin-bottom:15px;
 }
 
-.titulo p{
-    color:#94a3b8;
-    font-size:22px;
+.archivo{
+    background:#0f172a;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:12px;
 }
 
-/* INTRO */
-
-.intro{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:50px;
-    margin-bottom:80px;
+.archivo p{
+    margin-bottom:10px;
+    word-break:break-word;
+    color:#e2e8f0;
 }
-
-/* TEXTO */
-
-.intro-text{
-    width:55%;
-}
-
-.intro-text h2{
-    font-size:40px;
-    margin-bottom:25px;
-    color:#60a5fa;
-}
-
-.intro-text p{
-    text-align:justify;
-    line-height:2;
-    font-size:19px;
-    color:#cbd5e1;
-}
-
-/* IMAGEN */
-
-.intro-img{
-    width:40%;
-}
-
-.intro-img img{
-    width:100%;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.4);
-}
-
-/* UNIDADES */
-
-.unidades{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:30px;
-}
-
-/* CARD */
-
-.card{
-    background:#1e293b;
-    padding:35px;
-    border-radius:20px;
-    transition:0.3s;
-    border:1px solid rgba(255,255,255,0.05);
-}
-
-.card:hover{
-    transform:translateY(-8px);
-    background:#273549;
-}
-
-.card h3{
-    font-size:30px;
-    color:#60a5fa;
-    margin-bottom:20px;
-}
-
-.card p{
-    color:#cbd5e1;
-    line-height:1.8;
-    margin-bottom:25px;
-    text-align:justify;
-}
-
-/* BOTON */
 
 .btn{
-    display:inline-block;
     background:#2563eb;
     color:white;
-    padding:14px 30px;
-    border-radius:12px;
+    padding:8px 12px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    margin:3px;
     text-decoration:none;
-    transition:0.3s;
-    font-weight:bold;
+    display:inline-block;
 }
 
 .btn:hover{
     background:#1d4ed8;
-    transform:scale(1.05);
 }
 
-/* RESPONSIVE */
+input{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    margin-top:10px;
+    background:#0f172a;
+    color:white;
+    border:none;
+}
 
-@media(max-width:900px){
+/* VISOR */
 
-    .intro{
-        flex-direction:column;
-    }
+.visor{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.96);
 
-    .intro-text,
-    .intro-img{
-        width:100%;
-    }
+    display:none;
 
-    .unidades{
-        grid-template-columns:1fr;
-    }
+    justify-content:center;
+    align-items:center;
 
-    .titulo h1{
-        font-size:40px;
-    }
+    z-index:9999;
 
+    padding:30px;
+}
+
+.visor-contenido{
+    width:90%;
+    height:90%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#archivoVisor{
+    width:100%;
+    height:100%;
+    border:none;
+    border-radius:15px;
+    background:white;
+}
+
+#imagenVisor{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:15px;
+    display:none;
+}
+
+.cerrar{
+    position:absolute;
+    top:15px;
+    right:30px;
+    font-size:40px;
+    color:white;
+    cursor:pointer;
 }
 
 </style>
 
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 <body>
 
-<!-- NAVBAR -->
+<div class="navbar">
 
-<header class="navbar">
+    <h2>Unidad IV</h2>
 
-    <div class="logo-area">
+    <div>
+        <a href="introduccion.html">← Volver</a>
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Escudo_Upla.png" class="logo">
-
-        <div>
-            <h2>UPLA</h2>
-            <p>Portafolio Arquitectura de Software</p>
-        </div>
-
+        <a href="#" class="logout" onclick="cerrarSesion()">
+            Cerrar Sesión
+        </a>
     </div>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-    </nav>
+</div>
 
-</header>
+<div class="titulo">
+    <h1>UNIDAD IV</h1>
+</div>
 
-<!-- CONTENIDO -->
+<div class="grid" id="contenedor"></div>
 
-<div class="container">
+<!-- VISOR -->
+<div id="visor" class="visor">
 
-    <!-- TITULO -->
+    <span class="cerrar" onclick="cerrarVisor()">✖</span>
 
-    <div class="titulo">
+    <div class="visor-contenido">
 
-        <h1>INTRODUCCIÓN</h1>
+        <iframe id="archivoVisor"></iframe>
 
-        <p>
-            Curso de Arquitectura de Software
-        </p>
-
-    </div>
-
-    <!-- INTRO -->
-
-    <div class="intro">
-
-        <!-- TEXTO -->
-
-        <div class="intro-text">
-
-            <h2>¿Qué es la Arquitectura de Software?</h2>
-
-            <p>
-                La Arquitectura de Software representa la estructura fundamental de un sistema informático, permitiendo definir componentes, relaciones y principios de diseño que facilitan el desarrollo de aplicaciones modernas. Su objetivo principal es garantizar sistemas eficientes, escalables, seguros y fáciles de mantener.
-            </p>
-
-            <br>
-
-            <p>
-                En el presente portafolio se evidencian los trabajos, prácticas y actividades desarrolladas durante el curso, organizadas por unidades académicas y semanas. Asimismo, se muestran los conocimientos adquiridos sobre patrones arquitectónicos, estilos de diseño y buenas prácticas aplicadas a la Ingeniería de Sistemas.
-            </p>
-
-        </div>
-
-        <!-- IMAGEN -->
-
-        <div class="intro-img">
-
-            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1000&auto=format&fit=crop">
-
-        </div>
-
-    </div>
-
-    <!-- UNIDADES -->
-
-    <div class="unidades">
-
-        <!-- UNIDAD 1 -->
-
-        <div class="card">
-
-            <h3>Unidad I</h3>
-
-            <p>
-                Fundamentos y conceptos básicos de Arquitectura de Software, incluyendo estilos arquitectónicos y principios de diseño.
-            </p>
-
-            <a href="unidad1.html" class="btn">
-                Ingresar
-            </a>
-
-        </div>
-
-        <!-- UNIDAD 2 -->
-
-        <div class="card">
-
-            <h3>Unidad II</h3>
-
-            <p>
-                Desarrollo de modelos arquitectónicos, diagramas y documentación aplicada a sistemas informáticos modernos.
-            </p>
-
-            <a href="unidad2.html" class="btn">
-                Ingresar
-            </a>
-
-        </div>
-
-        <!-- UNIDAD 3 -->
-
-        <div class="card">
-
-            <h3>Unidad III</h3>
-
-            <p>
-                Aplicación de patrones de diseño, calidad de software y metodologías orientadas al desarrollo empresarial.
-            </p>
-
-            <a href="unidad3.html" class="btn">
-                Ingresar
-            </a>
-
-        </div>
-
-        <!-- UNIDAD 4 -->
-
-        <div class="card">
-
-            <h3>Unidad IV</h3>
-
-            <p>
-                Integración de soluciones arquitectónicas y evaluación de proyectos aplicando buenas prácticas profesionales.
-            </p>
-
-            <a href="unidad4.html" class="btn">
-                Ingresar
-            </a>
-
-        </div>
+        <img id="imagenVisor">
 
     </div>
 
 </div>
+
+<script>
+
+const cliente = window.supabase.createClient(
+    "https://dkcswvploklhajstyntd.supabase.co",
+    "sb_publishable_9bvZjgFd9SjBYMyKwAcD9w_OWUHBPi2"
+);
+
+let rol = localStorage.getItem("rol") || "admin";
+
+const semanas = ["semana13","semana14","semana15","semana16"];
+
+// RENDER
+async function render(){
+
+    let contenedor = document.getElementById("contenedor");
+
+    contenedor.innerHTML = "";
+
+    for(let semana of semanas){
+
+        let card = document.createElement("div");
+
+        card.className = "card";
+
+        let html = `<h3>${semana.toUpperCase()}</h3>`;
+
+        const { data } = await cliente
+            .storage
+            .from("portafolio")
+            .list(semana);
+
+        if(!data || data.length === 0){
+
+            html += `<p style="color:gray;">No hay archivos</p>`;
+
+        }else{
+
+            data.forEach(file => {
+
+                let nombreLimpio = file.name.replace(/^\d+_/, "");
+
+                const path = `${semana}/${file.name}`;
+
+                const url = cliente
+                    .storage
+                    .from("portafolio")
+                    .getPublicUrl(path).data.publicUrl;
+
+                html += `
+                    <div class="archivo">
+
+                        <p>📄 ${nombreLimpio}</p>
+
+                        <button class="btn" onclick="abrirVisor('${url}')">
+                            Ver
+                        </button>
+
+                        <a href="${url}" download class="btn" style="background:#16a34a;">
+                            Descargar
+                        </a>
+
+                        ${rol === "admin" ? `
+                            <button onclick="eliminar('${path}')" class="btn" style="background:red;">
+                                Eliminar
+                            </button>
+                        ` : ""}
+
+                    </div>
+                `;
+            });
+        }
+
+        // ADMIN
+        if(rol === "admin"){
+
+            html += `
+                <input type="file" id="${semana}">
+
+                <button onclick="subir('${semana}')" class="btn">
+                    Subir
+                </button>
+            `;
+        }
+
+        card.innerHTML = html;
+
+        contenedor.appendChild(card);
+    }
+}
+
+// SUBIR
+async function subir(semana){
+
+    let file = document.getElementById(semana).files[0];
+
+    if(!file){
+        alert("Selecciona archivo");
+        return;
+    }
+
+    const path = `${semana}/${file.name}`;
+
+    const { error } = await cliente
+        .storage
+        .from("portafolio")
+        .upload(path, file, {
+            upsert:true
+        });
+
+    if(error){
+
+        alert("Error al subir");
+
+        console.log(error);
+
+        return;
+    }
+
+    alert("Archivo subido ✅");
+
+    render();
+}
+
+// ELIMINAR
+async function eliminar(path){
+
+    await cliente
+        .storage
+        .from("portafolio")
+        .remove([path]);
+
+    render();
+}
+
+// ABRIR VISOR
+function abrirVisor(url){
+
+    document.getElementById("visor").style.display = "flex";
+
+    let iframe = document.getElementById("archivoVisor");
+
+    let imagen = document.getElementById("imagenVisor");
+
+    // DETECTAR IMAGENES
+    if(
+        url.includes(".png") ||
+        url.includes(".jpg") ||
+        url.includes(".jpeg") ||
+        url.includes(".gif") ||
+        url.includes(".webp")
+    ){
+
+        iframe.style.display = "none";
+
+        imagen.style.display = "block";
+
+        imagen.src = url;
+    }
+
+    // PDF
+    else if(url.includes(".pdf")){
+
+        imagen.style.display = "none";
+
+        iframe.style.display = "block";
+
+        iframe.src = "https://docs.google.com/gview?embedded=1&url=" + encodeURIComponent(url);
+    }
+
+    // OTROS ARCHIVOS
+    else{
+
+        imagen.style.display = "none";
+
+        iframe.style.display = "block";
+
+        iframe.src = url;
+    }
+}
+// CERRAR VISOR
+function cerrarVisor(){
+
+    document.getElementById("visor").style.display = "none";
+
+    document.getElementById("archivoVisor").src = "";
+
+    document.getElementById("imagenVisor").src = "";
+}
+
+// CERRAR SESION
+function cerrarSesion(){
+
+    localStorage.clear();
+
+    window.location.href = "index.html";
+}
+
+// INICIAR
+render();
+
+</script>
 
 </body>
 </html>
